@@ -1,71 +1,117 @@
-⏱️ JEE Study Time Tracker
-A lightweight study time tracking web app designed to help students monitor their productivity, track subjects, and analyze study habits.
-This project was built to keep preparation structured and consistent, especially for competitive exams like JEE.
-🚀 Features
-⏳ Study Timer – Track how long you study in real time
-📊 Dashboard Analytics – Visual overview of study sessions
-📚 Subject Tracking – Record study time for different subjects
-📝 Notes System – Save important study notes
-🔐 Authentication System – Basic login / session handling
-📱 PWA Support – Installable web app using manifest.json
-🎨 Clean UI – Minimal and distraction-free design
-🛠️ Tech Stack
-HTML5
-CSS3
-JavaScript (Vanilla JS)
-Progressive Web App (PWA)
-No external frameworks were used — the project is built with pure frontend technologies.
-📂 Project Structure
-Copy code
+<h1 align="center">⏱️ JEE Study Time Tracker</h1>
 
+<p align="center">
+A lightweight <b>study time tracking web app</b> designed to help students track productivity,
+manage study sessions, and stay consistent during preparation.
+</p>
+
+<hr>
+
+<h2>🚀 Features</h2>
+
+<ul>
+<li><b>Study Timer</b> – Track your study sessions in real time</li>
+<li><b>Dashboard Analytics</b> – Visual overview of study productivity</li>
+<li><b>Subject Tracking</b> – Track time spent on each subject</li>
+<li><b>Notes System</b> – Save quick study notes</li>
+<li><b>Authentication</b> – Basic login/session handling</li>
+<li><b>PWA Support</b> – Install the app on your device</li>
+<li><b>Minimal UI</b> – Clean and distraction-free interface</li>
+</ul>
+
+<hr>
+
+<h2>🛠 Tech Stack</h2>
+
+<p>
+#HTML &nbsp;
+#CSS &nbsp;
+#JavaScript &nbsp;
+#PWA
+</p>
+
+<hr>
+
+<h2>📂 Project Structure</h2>
+
+<pre>
 Time-Tracker
 │
-├── index.html        # Main landing / timer page
-├── dashboard.html    # Study analytics dashboard
-├── app.js            # Main application logic
-├── auth.js           # Authentication handling
-├── style.css         # Styling and layout
-├── manifest.json     # PWA configuration
+├── index.html        Main timer page
+├── dashboard.html    Study analytics dashboard
+├── app.js            Main application logic
+├── auth.js           Authentication handling
+├── style.css         Styling
+├── manifest.json     PWA configuration
 └── README.md
-⚡ Getting Started
-1️⃣ Clone the repository
-Bash
-Copy code
-git clone https://github.com/yourusername/time-tracker.git
-2️⃣ Open the project
-Just open index.html in your browser.
-Or run a local server (recommended):
-Bash
-Copy code
+</pre>
+
+<hr>
+
+<h2>⚡ Getting Started</h2>
+
+<h3>1. Clone the repository</h3>
+
+<pre>
+git clone https://github.com/nandandas2407-web/Time-Tracker.git
+</pre>
+
+<h3>2. Run the project</h3>
+
+<p>Open <b>index.html</b> in your browser.</p>
+
+<p>Or run a local server:</p>
+
+<pre>
 python -m http.server
-Then visit:
-Copy code
+</pre>
 
-http://localhost: Screenshots (Optional)
+<p>Then visit:</p>
 
-🎯 Purpose of the Project
-This project was created to:
-Improve study discipline
-Track daily productivity
-Help JEE aspirants manage preparation
-Practice JavaScript development
-🔮 Future Improvements
-Planned features:
-📊 Advanced analytics charts
-☁️ Cloud data storage
-📅 Study schedule planner
-🔔 Smart study reminders
-🌙 Dark mode
-📱 Mobile optimized UI
-🤝 Contributing
-Contributions are welcome.
-Fork the repository
-Create a new branch
-Make your changes
-Submit a Pull Request
-📄 License
-This project is licensed under the MIT License.
-👨‍💻 Author
-Nandan Das
+<pre>
+http://localhost:8000
+</pre>
+
+<hr>
+
+<h2>🎯 Purpose</h2>
+
+<p>
+This project was built to help students maintain <b>consistent study habits</b>,
+track productivity, and manage preparation for competitive exams like <b>JEE</b>.
+</p>
+
+<hr>
+
+<h2>🔮 Future Improvements</h2>
+
+<ul>
+<li>Advanced analytics charts</li>
+<li>Cloud data storage</li>
+<li>Study planner</li>
+<li>Smart reminders</li>
+<li>Dark mode</li>
+<li>Better mobile UI</li>
+</ul>
+
+<hr>
+
+<h2>📄 License</h2>
+
+<p>This project is licensed under the <b>MIT License</b>.</p>
+
+<hr>
+
+<h2>👨‍💻 Author</h2>
+
+<p>
+<b>Nandan Das</b><br>
+Learner<br>
 Developer & Builder
+</p>
+
+<hr>
+
+<p align="center">
 ⭐ If you like this project, consider starring the repository.
+</p>
