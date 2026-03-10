@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366f1">
+    <title>Dashboard - JEE Study Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <span class="logo">📚</span>
+            <span class="brand-name">JEE Tracker</span>
+        </div>
+        <div class="navbar-actions">
+            <button class="btn-icon" id="darkModeToggle" title="Toggle Dark Mode">
+                <span class="icon">🌙</span>
+            </button>
+            <button class="btn-icon" id="pomodoroToggle" title="Pomodoro Mode">
+                <span class="icon">🍅</span>
+            </button>
+            <div class="user-menu">
+                <span class="username" id="currentUsername">User</span>
+                <button class="btn btn-secondary btn-sm" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Main Grid Layout -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Timer & Controls -->
+            <aside class="sidebar">
+                <!-- Timer Card -->
+                <div class="card timer-card">
+                    <h2 class="card-title">Study Timer</h2>
+                    
+                    <div class="timer-display" id="timerDisplay">
+                        00:00:00
+                    </div>
+
+                    <div class="timer-status">
+                        <span class="status-badge" id="timerStatus">Ready</span>
+                        <span class="focus-indicator" id="focusIndicator"></span>
+                    </div>
+
+                    <div class="timer-controls">
+                        <button class="btn btn-success" id="startBtn">
+                            <span class="icon">▶️</span> Start
+                        </button>
+                        <button class="btn btn-warning" id="pauseBtn" disabled>
+                            <span class="icon">⏸️</span> Pause
+                        </button>
+                        <button class="btn btn-danger" id="stopBtn" disabled>
+                            <span class="icon">⏹️</span> Stop
+                        </button>
+                    </div>
+
+                    <div class="pomodoro-info" id="pomodoroInfo" style="display: none;">
+                        <div class="pomodoro-phase">
+                            <span id="pomodoroPhase">Study Phase</span>
+                            <span id="pomodoroTimer">50:00</span>
+                        </div>
+                        <div class="pomodoro-progress">
+                            <div class="pomodoro-bar" id="pomodoroBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subject Selection -->
+                <div class="card">
+                    <h3 class="card-title">Subject</h3>
+                    <select id="subjectSelect" class="select-input">
+                        <option value="">Select Subject</option>
+                        <option value="Physics">⚛️ Physics</option>
+                        <option value="Chemistry">🧪 Chemistry</option>
+                        <option value="Mathematics">📐 Mathematics</option>
+                        <option value="Bengali">📖 Bengali</option>
+                        <option value="English">✍️ English</option>
+                        <option value="Computer Science">💻 Computer Science</option>
+                    </select>
+                </div>
+
+                <!-- Activity Selection -->
+                <div class="card">
+                    <h3 class="card-title">Activity</h3>
+                    <select id="activitySelect" class="select-input">
+                        <option value="">Select Activity</option>
+                        <option value="Watching Lecture">🎥 Watching Lecture</option>
+                        <option value="Taking Notes">📝 Taking Notes</option>
+                        <option value="Problem Solving">🧮 Problem Solving</option>
+                        <option value="Reading">📚 Reading</option>
+                        <option value="Writing">✏️ Writing</option>
+                        <option value="Coding">💾 Coding</option>
+                    </select>
+                </div>
+
+                <!-- Quick Study Slot Entry -->
+                <div class="card quick-entry-card">
+                    <h3 class="card-title">⚡ Quick Add Time</h3>
+                    <p class="help-text-small">Manually add study hours</p>
+                    <div class="quick-entry-form">
+                        <input 
+                            type="number" 
+                            id="quickHours" 
+                            class="input-small" 
+                            placeholder="Hours"
+                            min="0"
+                            max="12"
+                            step="0.5"
+                        >
+                        <input 
+                            type="number" 
+                            id="quickMinutes" 
+                            class="input-small" 
+                            placeholder="Mins"
+                            min="0"
+                            max="59"
+                        >
+                        <button class="btn btn-primary btn-sm btn-block" id="quickAddBtn">
+                            Add Time
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card stats-mini">
+                    <div class="stat-item">
+                        <span class="stat-label">Today</span>
+                        <span class="stat-value" id="todayTotal">0h 0m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Streak</span>
+                        <span class="stat-value" id="streakCount">0 🔥</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Column: Notes & Progress -->
+            <main class="main-content">
+                
+                <!-- Progress Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Daily Progress</h2>
+                        <button class="btn btn-sm btn-secondary" id="setTargetBtn">Set Targets</button>
+                    </div>
+                    
+                    <div class="progress-section" id="progressSection">
+                        <div class="progress-placeholder">
+                            <span class="icon-large">🎯</span>
+                            <p>Select subject and activity to see progress</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div class="card notes-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Study Notes</h2>
+                        <span class="shortcut-hint">Ctrl+S to save</span>
+                    </div>
+                    
+                    <div class="notes-meta" id="notesMeta">
+                        <span class="notes-context">No active session</span>
+                    </div>
+
+                    <textarea 
+                        id="notesArea" 
+                        class="notes-textarea" 
+                        placeholder="Take notes here... (Auto-saves on timer stop)"
+                        disabled
+                    ></textarea>
+
+                    <div class="notes-footer">
+                        <span class="notes-count" id="notesCount">0 notes saved today</span>
+                        <button class="btn btn-primary btn-sm" id="saveNotesBtn" disabled>
+                            Save Notes
+                        </button>
+                    </div>
+
+                    <!-- Notes History -->
+                    <div class="notes-history" id="notesHistory">
+                        <!-- Notes will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Analytics Section -->
+                <div class="card">
+                    <h2 class="card-title">Analytics & Insights</h2>
+                    
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="daily">Daily</button>
+                        <button class="tab-btn" data-tab="weekly">Weekly</button>
+                        <button class="tab-btn" data-tab="distribution">Distribution</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- Daily Tab -->
+                        <div class="tab-pane active" id="dailyTab">
+                            <div class="analytics-grid">
+                                <div class="analytics-card">
+                                    <div class="analytics-icon">📅</div>
+                                    <div class="analytics-data">
+                                        <span class="analytics-label">Total Today</span>
+                                        <span class="analytics-value" id="analyticsToday">0h 0m</span>
+                                    </div>
+                                </div>
+                                <div class="analytics-card">
+                                    <div class="analytics-icon">⚡</div>
+                                    <div class="analytics-data">
+                                        <span class="analytics-label">Efficiency</span>
+                                        <span class="analytics-value" id="analyticsEfficiency">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="subject-breakdown" id="dailySubjectBreakdown">
+                                <!-- Subject bars will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Weekly Tab -->
+                        <div class="tab-pane" id="weeklyTab">
+                            <div class="analytics-card full-width">
+                                <div class="analytics-icon">📊</div>
+                                <div class="analytics-data">
+                                    <span class="analytics-label">Weekly Total</span>
+                                    <span class="analytics-value" id="weeklyTotal">0h 0m</span>
+                                </div>
+                            </div>
+                            
+                            <div class="weekly-chart" id="weeklyChart">
+                                <!-- Weekly bars will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Distribution Tab -->
+                        <div class="tab-pane" id="distributionTab">
+                            <h4 class="section-subtitle">Subject Distribution</h4>
+                            <div class="distribution-list" id="subjectDistribution">
+                                <!-- Distribution items will be inserted here -->
+                            </div>
+                            
+                            <h4 class="section-subtitle">Activity Distribution</h4>
+                            <div class="distribution-list" id="activityDistribution">
+                                <!-- Distribution items will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Column: Calendar & Reminders -->
+            <aside class="sidebar-right">
+                
+                <!-- Study Streak -->
+                <div class="card streak-card">
+                    <h3 class="card-title">Study Streak 🔥</h3>
+                    <div class="streak-display">
+                        <div class="streak-number" id="streakNumber">0</div>
+                        <div class="streak-label">days</div>
+                    </div>
+                    <div class="streak-calendar" id="streakCalendar">
+                        <!-- Last 7 days will be shown here -->
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <h3 class="card-title">Quick Actions</h3>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" id="viewDataBtn">
+                            <span class="icon">📊</span>
+                            <span>View All Data</span>
+                        </button>
+                        <button class="quick-action-btn" id="exportDataBtn">
+                            <span class="icon">📥</span>
+                            <span>Export Data</span>
+                        </button>
+                        <button class="quick-action-btn" id="resetDayBtn">
+                            <span class="icon">🔄</span>
+                            <span>Reset Today</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Revision Reminders -->
+                <div class="card">
+                    <h3 class="card-title">Revision Queue</h3>
+                    <div class="reminder-list" id="reminderList">
+                        <div class="reminder-placeholder">
+                            <span class="icon">✅</span>
+                            <span>All caught up!</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <p class="copyright">© 2026 JEE Study Tracker. All rights reserved.</p>
+            <p class="developer-credit">Crafted with passion by <strong>Nandan Das</strong> | For JEE Aspirants 🎯</p>
+        </div>
+    </footer>
+
+    <!-- Target Setting Modal -->
+    <div class="modal" id="targetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Set Daily Targets</h3>
+                <button class="modal-close" id="closeTargetModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="target-form" id="targetForm">
+                    <!-- Target inputs will be generated dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelTargetBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveTargetBtn">Save Targets</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('✅ Service Worker registered - App is installable!'))
+                    .catch(err => console.log('❌ Service Worker registration failed:', err));
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show custom install button
+            const installBtn = document.createElement('button');
+            installBtn.className = 'btn-icon install-btn';
+            installBtn.innerHTML = '<span class="icon" title="Install App">📲</span>';
+            installBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 1rem; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999; animation: bounce 2s infinite;';
+            
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    
+                    if (outcome === 'accepted') {
+                        console.log('✅ User accepted the install prompt');
+                    }
+                    
+                    deferredPrompt = null;
+                    installBtn.remove();
+                }
+            });
+            
+            document.body.appendChild(installBtn);
+            
+            // Auto-show notification about install
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position: fixed; bottom: 90px; right: 20px; background: var(--bg-primary); padding: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 16px var(--shadow); max-width: 280px; z-index: 998; animation: slideInRight 0.3s ease;';
+                notification.innerHTML = '<strong>💡 Install this app!</strong><br><small>Click the button below to install on your device</small>';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.remove(), 5000);
+            }, 3000);
+        });
+        
+        // Handle successful installation
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App installed successfully!');
+            deferredPrompt = null;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="Personal JEE Study Tracker - Track your JEE preparation efficiently">
+    <title>JEE Study Tracker - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo-icon">📚</div>
+                <h1>JEE Study Tracker</h1>
+                <p class="tagline">Track. Focus. Excel.</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Login</span>
+                </button>
+
+                <p class="help-text" id="helpText">
+                    First time? Create your credentials to get started.
+                </p>
+            </form>
+
+            <div class="features-preview">
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span>Smart Timer</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span>Analytics</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <span>Goal Tracking</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <p class="copyright">© 2026 JEE Study Tracker. All rights reserved.</p>
+            <p class="developer-credit">Developed with ❤️ by <strong>Nandan Das</strong></p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
